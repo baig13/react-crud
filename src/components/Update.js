@@ -21,19 +21,23 @@ const Update = () => {
     setDate(localStorage.getItem("date"));
   }, []);
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    axios
-      .put(`https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud/${id}`, {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        salary: salary,
-        date: date,
-      })
-      .then(() => {
-        history("/read");
-      });
+  const handleUpdate = async (e) => {
+    try {
+      e.preventDefault();
+      await axios.put(
+        `https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud/${id}`,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          salary: salary,
+          date: date,
+        }
+      );
+      history("/read");
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div>

@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 
 const Read = () => {
   const [data, setData] = useState([]);
-  const getData = () => {
-    axios
-      .get("https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      });
+  const getData = async () => {
+    try {
+      const res = await axios.get(
+        "https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud"
+      );
+
+      console.log(res.data);
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const saveLocalStorage = (id, firstName, lastName, email, salary, date) => {
@@ -22,12 +26,15 @@ const Read = () => {
     localStorage.setItem("date", date);
   };
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud/${id}`)
-      .then(() => {
-        getData();
-      });
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(
+        `https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud/${id}`
+      );
+      getData();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {

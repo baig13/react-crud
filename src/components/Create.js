@@ -11,20 +11,24 @@ const Create = () => {
 
   const history = useNavigate();
   const header = { "Access-Control-Allow-Origin": "*" };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud", {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        salary: salary,
-        date: date,
-        header,
-      })
-      .then(() => {
-        history("/read");
-      });
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      await axios.post(
+        "https://6406578777c1a905a0d9a6f4.mockapi.io/react-crud",
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          salary: salary,
+          date: date,
+          header,
+        }
+      );
+      history("/read");
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div>
